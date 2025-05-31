@@ -1,14 +1,13 @@
-import React from 'react';
+import { FontAwesome } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import {
-  View,
+  Image,
+  Pressable,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  StyleSheet,
-  Pressable,
-  Image,
+  View,
 } from 'react-native';
-import { useRouter } from 'expo-router';
-import { FontAwesome } from '@expo/vector-icons';
 import { useNotifications } from '../context/NotificationContext';
 
 export default function HomeScreen() {
@@ -56,12 +55,18 @@ export default function HomeScreen() {
         <Text style={styles.buttonText}>Historial de incidentes</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.buttonYellow}>
+      <TouchableOpacity style={styles.buttonYellow}
+        onPress={() => router.push('/estadisticas')}
+      >
         <Text style={styles.buttonText}>Estadísticas</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.buttonYellow}>
+      <TouchableOpacity 
+        style={styles.buttonYellow}
+        onPress={() => router.push('/inventario')}
+      >
         <Text style={styles.buttonText}>Inventario</Text>
+
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.buttonYellow}>
