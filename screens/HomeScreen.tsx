@@ -55,7 +55,8 @@ export default function HomeScreen() {
         <Text style={styles.buttonText}>Historial de incidentes</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.buttonYellow}
+      <TouchableOpacity 
+        style={styles.buttonYellow}
         onPress={() => router.push('/estadisticas')}
       >
         <Text style={styles.buttonText}>Estadísticas</Text>
@@ -69,7 +70,10 @@ export default function HomeScreen() {
 
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.buttonYellow}>
+      <TouchableOpacity 
+        style={styles.buttonYellow}
+        onPress={() => router.push('/asignacion-tareas_jefe')}
+      >
         <Text style={styles.buttonText}>Asignación de tareas</Text>
       </TouchableOpacity>
 
