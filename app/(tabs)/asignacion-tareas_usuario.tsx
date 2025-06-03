@@ -20,22 +20,23 @@ interface Tarea {
   tipo: 'asignada' | 'propia';
   autor?: string;
   fecha?: string;
-  color: 'blue' | 'lightblue' | 'darkred' | 'red';
+  color: 'blue' | 'lightblue' | 'red' | 'lightred';
 }
 
 let idCounter = 1;
 
-export default function TareasUsuarioScreen() {
+export default function AsignacionUsuarioScreen() {
   const router = useRouter();
   const { hasNotifications, markAsRead } = useNotifications();
-  const [tareas, setTareas] = useState<Tarea[]>([
+
+  const [tareas, setTareas] = useState<Tarea[]>([ // ejemplo base
     {
       id: idCounter++,
       descripcion: 'Supervisar la implementación de Laboratorio',
       tipo: 'asignada',
       autor: 'Ing. Manuel',
       fecha: '03/06/2025',
-      color: 'blue',
+      color: 'blue'
     },
     {
       id: idCounter++,
@@ -43,7 +44,7 @@ export default function TareasUsuarioScreen() {
       tipo: 'asignada',
       autor: 'Ing. Manuel',
       fecha: '03/06/2025',
-      color: 'lightblue',
+      color: 'lightblue'
     },
     {
       id: idCounter++,
@@ -51,7 +52,7 @@ export default function TareasUsuarioScreen() {
       tipo: 'asignada',
       autor: 'Ing. Manuel',
       fecha: '03/06/2025',
-      color: 'blue',
+      color: 'blue'
     },
     {
       id: idCounter++,
@@ -59,43 +60,43 @@ export default function TareasUsuarioScreen() {
       tipo: 'asignada',
       autor: 'Ing. Manuel',
       fecha: '03/06/2025',
-      color: 'lightblue',
+      color: 'lightblue'
     },
     {
       id: idCounter++,
       descripcion: 'Revisar el inventario',
       tipo: 'propia',
-      color: 'darkred',
+      color: 'red'
     },
     {
       id: idCounter++,
       descripcion: 'Validar el app',
       tipo: 'propia',
-      color: 'red',
+      color: 'lightred'
     },
   ]);
 
-  const [descripcion, setDescripcion] = useState('');
+  const [descripcionPropia, setDescripcionPropia] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [tareaSeleccionada, setTareaSeleccionada] = useState<Tarea | null>(null);
-  const [colorAlternador, setColorAlternador] = useState(true);
+  const [colorAlternadorPropia, setColorAlternadorPropia] = useState(true);
 
   const handleAgregarPropia = () => {
-    if (descripcion.trim()) {
+    if (descripcionPropia.trim()) {
       const nueva: Tarea = {
         id: idCounter++,
-        descripcion,
+        descripcion: descripcionPropia,
         tipo: 'propia',
-        color: colorAlternador ? 'darkred' : 'red',
+        color: colorAlternadorPropia ? 'red' : 'lightred'
       };
       setTareas([nueva, ...tareas]);
-      setDescripcion('');
-      setColorAlternador(!colorAlternador);
+      setDescripcionPropia('');
+      setColorAlternadorPropia(!colorAlternadorPropia);
     }
   };
 
   const handleTareaCumplida = (id: number) => {
-    setTareas(tareas.filter((t) => t.id !== id));
+    setTareas(tareas.filter(t => t.id !== id));
     setModalVisible(false);
   };
 
@@ -110,18 +111,19 @@ export default function TareasUsuarioScreen() {
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <View style={styles.leftIcons}>
-          <TouchableOpacity onPress={() => router.push('/home')}>
+          <Pressable onPress={() => router.push('/tabs/home')}>
             <FontAwesome name="home" size={24} color="#000" />
-          </TouchableOpacity>
-          <TouchableOpacity
+          </Pressable>
+          <Pressable
             onPress={() => {
               markAsRead();
               router.push('/tabs/notificaciones');
             }}
+            style={styles.bellWrapper}
           >
             <FontAwesome name="bell" size={24} color="#000" />
             {hasNotifications && <View style={styles.notificationDot} />}
-          </TouchableOpacity>
+          </Pressable>
         </View>
         <Image
           source={require('../../assets/imagenesApp/logo-creo.png')}
@@ -130,23 +132,21 @@ export default function TareasUsuarioScreen() {
       </View>
 
       <Text style={styles.sectionTitle}>Tareas asignadas</Text>
-      {tareas.filter((t) => t.tipo === 'asignada').map((t) => (
+      {tareas.filter(t => t.tipo === 'asignada').map(t => (
         <TouchableOpacity
           key={t.id}
           style={[styles.boton, t.color === 'blue' ? styles.azul : styles.celeste]}
-          onPress={() => mostrarModal(t)}
-        >
+          onPress={() => mostrarModal(t)}>
           <Text style={styles.botonTexto}>{obtenerTitulo(t.descripcion)}</Text>
         </TouchableOpacity>
       ))}
 
       <Text style={styles.sectionTitle}>Actividades propias</Text>
-      {tareas.filter((t) => t.tipo === 'propia').map((t) => (
+      {tareas.filter(t => t.tipo === 'propia').map(t => (
         <TouchableOpacity
           key={t.id}
-          style={[styles.boton, t.color === 'red' ? styles.rojo : styles.rojoOscuro]}
-          onPress={() => mostrarModal(t)}
-        >
+          style={[styles.boton, t.color === 'red' ? styles.rojo : styles.rojoClaro]}
+          onPress={() => mostrarModal(t)}>
           <Text style={styles.botonTexto}>{obtenerTitulo(t.descripcion)}</Text>
         </TouchableOpacity>
       ))}
@@ -155,22 +155,16 @@ export default function TareasUsuarioScreen() {
       <TextInput
         placeholder="Descripción de actividad"
         style={styles.input}
-        value={descripcion}
-        onChangeText={setDescripcion}
+        value={descripcionPropia}
+        onChangeText={setDescripcionPropia}
       />
       <TouchableOpacity style={styles.agregar} onPress={handleAgregarPropia}>
         <Text style={styles.botonTexto}>Agregar</Text>
       </TouchableOpacity>
 
-      {/* Modal */}
-      <Modal
-        visible={modalVisible}
-        animationType="slide"
-        transparent
-        onRequestClose={() => setModalVisible(false)}
-      >
+      <Modal visible={modalVisible} animationType="fade" transparent>
         <Pressable style={styles.modalContainer} onPress={() => setModalVisible(false)}>
-          <Pressable style={styles.modalContent} onPress={(e) => e.stopPropagation()}>
+          <Pressable style={styles.modalContent}>
             {tareaSeleccionada && (
               <>
                 {tareaSeleccionada.autor && (
@@ -182,8 +176,7 @@ export default function TareasUsuarioScreen() {
                 <Text style={{ marginVertical: 10 }}>{tareaSeleccionada.descripcion}</Text>
                 <TouchableOpacity
                   style={styles.tareaCumplida}
-                  onPress={() => handleTareaCumplida(tareaSeleccionada.id)}
-                >
+                  onPress={() => handleTareaCumplida(tareaSeleccionada.id)}>
                   <Text style={styles.botonTexto}>Tarea cumplida</Text>
                 </TouchableOpacity>
               </>
@@ -210,19 +203,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 15,
   },
-  logo: {
-    width: 120,
-    height: 50,
-    resizeMode: 'contain',
+  bellWrapper: {
+    position: 'relative',
   },
   notificationDot: {
     position: 'absolute',
-    top: -2,
-    right: -2,
+    top: 3,
+    right: 3,
     width: 10,
     height: 10,
     backgroundColor: 'red',
     borderRadius: 5,
+  },
+  logo: {
+    width: 120,
+    height: 50,
+    resizeMode: 'contain',
   },
   sectionTitle: {
     fontSize: 16,
@@ -242,10 +238,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#81D4FA',
   },
   rojo: {
-    backgroundColor: '#C44E4E',
-  },
-  rojoOscuro: {
     backgroundColor: '#A94442',
+  },
+  rojoClaro: {
+    backgroundColor: '#D46A6A',
   },
   agregar: {
     backgroundColor: '#000',
