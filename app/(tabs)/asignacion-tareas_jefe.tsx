@@ -83,7 +83,7 @@ export default function AsignacionTareasScreen() {
         tipo: 'asignada',
         autor: 'Ing. Manuel',
         fecha: '03/06/2025',
-        color: colorAlternadorAsignada ? 'lightblue' : 'blue'
+        color: colorAlternadorAsignada ? 'blue' : 'lightblue'
       };
       setTareas([nueva, ...tareas]);
       setDescripcionAsignada('');
