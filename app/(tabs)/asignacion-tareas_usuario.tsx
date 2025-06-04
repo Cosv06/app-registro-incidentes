@@ -2,15 +2,15 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-    Image,
-    Modal,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Image,
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { useNotifications } from '../../context/NotificationContext';
 
@@ -87,7 +87,7 @@ export default function AsignacionUsuarioScreen() {
         id: idCounter++,
         descripcion: descripcionPropia,
         tipo: 'propia',
-        color: colorAlternadorPropia ? 'red' : 'lightred'
+        color: colorAlternadorPropia ? 'lightred' : 'red'
       };
       setTareas([nueva, ...tareas]);
       setDescripcionPropia('');
@@ -111,7 +111,7 @@ export default function AsignacionUsuarioScreen() {
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <View style={styles.leftIcons}>
-          <Pressable onPress={() => router.push('/tabs/home')}>
+          <Pressable onPress={() => router.push('/home')}>
             <FontAwesome name="home" size={24} color="#000" />
           </Pressable>
           <Pressable
@@ -145,7 +145,7 @@ export default function AsignacionUsuarioScreen() {
       {tareas.filter(t => t.tipo === 'propia').map(t => (
         <TouchableOpacity
           key={t.id}
-          style={[styles.boton, t.color === 'red' ? styles.rojo : styles.rojoClaro]}
+          style={[styles.boton, t.color === 'red' ? styles.rojoClaro : styles.rojo]}
           onPress={() => mostrarModal(t)}>
           <Text style={styles.botonTexto}>{obtenerTitulo(t.descripcion)}</Text>
         </TouchableOpacity>
