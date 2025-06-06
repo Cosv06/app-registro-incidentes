@@ -1,14 +1,14 @@
+import { FontAwesome } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import {
-  View,
+  Image,
+  Pressable,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  StyleSheet,
-  Pressable,
-  Image,
+  View,
 } from 'react-native';
-import { useRouter } from 'expo-router';
-import { FontAwesome } from '@expo/vector-icons';
 import { useNotifications } from '../../context/NotificationContext';
 
 export default function NuevoRegistro() {
@@ -20,14 +20,14 @@ export default function NuevoRegistro() {
       {/* Iconos arriba */}
       <View style={styles.header}>
         <View style={styles.leftIcons}>
-          <Pressable onPress={() => router.push('home')}>
+          <Pressable onPress={() => router.push('/home')}>
             <FontAwesome name="home" size={24} color="#000" />
           </Pressable>
 
           <Pressable
             onPress={() => {
               markAsRead();
-              router.push('/tabs/notificaciones');
+              router.push('/notificaciones');
             }}
             style={styles.bellWrapper}
           >

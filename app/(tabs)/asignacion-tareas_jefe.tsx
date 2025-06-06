@@ -1,14 +1,19 @@
+import { FontAwesome } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
+  Image,
   Modal,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View
+  View,
 } from 'react-native';
+import { useNotifications } from '../../context/NotificationContext';
 
 interface Tarea {
   id: number;
@@ -22,6 +27,9 @@ interface Tarea {
 let idCounter = 1;
 
 export default function AsignacionTareasScreen() {
+  const router = useRouter();
+  const { hasNotifications, markAsRead } = useNotifications();
+
   const [tareas, setTareas] = useState<Tarea[]>([
     {
       id: idCounter++,
@@ -106,11 +114,28 @@ export default function AsignacionTareasScreen() {
 
   return (
     <ScrollView style={styles.container}>
+      {/* Header con íconos y logo */}
+      <View style={styles.header}>
+        <View style={styles.leftIcons}>
+          <Pressable onPress={() => router.push('/home')}>
+            <FontAwesome name="home" size={24} color="#000" />
+          </Pressable>
+          <Pressable onPress={() => {
+            markAsRead();
+            router.push('/notificaciones');
+          }} style={styles.bellWrapper}>
+            <FontAwesome name="bell" size={24} color="#000" />
+            {hasNotifications && <View style={styles.notificationDot} />}
+          </Pressable>
+        </View>
+        <Image source={require('../../assets/imagenesApp/logo-creo.png')} style={styles.logo} />
+      </View>
+
       <Text style={styles.sectionTitle}>Tareas asignadas</Text>
       {tareas.filter(t => t.tipo === 'asignada').map(t => (
         <TouchableOpacity
           key={t.id}
-          style={[styles.boton, t.color === 'blue' ? styles.celeste : styles.azul]}
+          style={[styles.boton, t.color === 'blue' ? styles.azul : styles.celeste]}
           onPress={() => mostrarModal(t)}>
           <Text style={styles.botonTexto}>{obtenerTitulo(t.descripcion)}</Text>
         </TouchableOpacity>
@@ -192,6 +217,34 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     padding: 20,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  leftIcons: {
+    flexDirection: 'row',
+    gap: 15,
+  },
+  bellWrapper: {
+    position: 'relative',
+    marginLeft: 15,
+  },
+  notificationDot: {
+    position: 'absolute',
+    top: 3,
+    right: 3,
+    width: 10,
+    height: 10,
+    backgroundColor: 'red',
+    borderRadius: 5,
+  },
+  logo: {
+    width: 120,
+    height: 50,
+    resizeMode: 'contain',
   },
   sectionTitle: {
     fontSize: 16,

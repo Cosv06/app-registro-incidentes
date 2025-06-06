@@ -38,7 +38,7 @@ export default function InventarioScreen() {
           <Pressable
             onPress={() => {
               markAsRead();
-              router.push('/tabs/notificaciones');
+              router.push('/notificaciones');
             }}
             style={styles.bellWrapper}
           >

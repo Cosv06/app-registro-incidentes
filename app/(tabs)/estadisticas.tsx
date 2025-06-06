@@ -1,12 +1,12 @@
 import { FontAwesome } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import {
-    Image,
-    Pressable,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { useNotifications } from '../../context/NotificationContext';
 
@@ -38,7 +38,7 @@ export default function EstadisticasScreen() {
           <Pressable
             onPress={() => {
               markAsRead();
-              router.push('/tabs/notificaciones');
+              router.push('/notificaciones');
             }}
             style={styles.bellWrapper}
           >

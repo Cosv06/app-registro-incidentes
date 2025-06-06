@@ -22,7 +22,7 @@ export default function HomeScreen() {
         <Pressable
           onPress={() => {
             markAsRead();
-            router.push('/tabs/notificaciones');
+            router.push('/notificaciones');
           }}
           style={styles.bellWrapper}
         >
@@ -80,7 +80,10 @@ export default function HomeScreen() {
       {/* Sección de cuenta */}
       <Text style={styles.sectionTitle}>Cuenta</Text>
 
-      <TouchableOpacity style={styles.buttonRed}>
+      <TouchableOpacity 
+        style={styles.buttonRed}
+        onPress={() => router.push('/admin-cuenta-jefe')}
+      >
         <Text style={styles.buttonText}>Administrar cuenta</Text>
       </TouchableOpacity>
 
@@ -88,7 +91,10 @@ export default function HomeScreen() {
         <Text style={styles.buttonText}>Mis actividades</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.buttonDark}>
+      <TouchableOpacity 
+        style={styles.buttonDark}
+        onPress={() => router.push('/login')}
+      >
         <Text style={styles.buttonText}>Cerrar sesión</Text>
       </TouchableOpacity>
     </View>
