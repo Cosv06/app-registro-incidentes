@@ -108,7 +108,7 @@ export default function AdministrarUsuariosScreen() {
           <Pressable
             onPress={() => {
               markAsRead();
-              router.push('/notificaciones');
+              router.push({ pathname: '/notificaciones', params: { from: 'admin-usuarios' } });
             }}
             style={styles.bellWrapper}
           >

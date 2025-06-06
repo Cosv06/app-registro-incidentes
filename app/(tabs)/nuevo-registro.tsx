@@ -27,7 +27,7 @@ export default function NuevoRegistro() {
           <Pressable
             onPress={() => {
               markAsRead();
-              router.push('/notificaciones');
+              router.push({ pathname: '/notificaciones', params: { from: 'nuevo-registro' } });
             }}
             style={styles.bellWrapper}
           >

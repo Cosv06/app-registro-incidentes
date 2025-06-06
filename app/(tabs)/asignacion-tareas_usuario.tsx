@@ -117,7 +117,7 @@ export default function AsignacionUsuarioScreen() {
           <Pressable
             onPress={() => {
               markAsRead();
-              router.push('/notificaciones');
+              router.push({ pathname: '/notificaciones', params: { from: 'asignacion-tareas_usuario' } });
             }}
             style={styles.bellWrapper}
           >

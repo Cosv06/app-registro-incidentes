@@ -38,7 +38,7 @@ export default function EstadisticasScreen() {
           <Pressable
             onPress={() => {
               markAsRead();
-              router.push('/notificaciones');
+              router.push({ pathname: '/notificaciones', params: { from: 'estadisticas' } });
             }}
             style={styles.bellWrapper}
           >

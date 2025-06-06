@@ -1,6 +1,6 @@
-import React from 'react'; 
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useRouter } from 'expo-router'; // ← importación agregada
+import React from 'react';
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function LoginScreen() {
   const router = useRouter(); // ← hook para navegación

@@ -122,7 +122,7 @@ export default function AsignacionTareasScreen() {
           </Pressable>
           <Pressable onPress={() => {
             markAsRead();
-            router.push('/notificaciones');
+            router.push({ pathname: '/notificaciones', params: { from: 'asignacion-tareas_jefe' } });
           }} style={styles.bellWrapper}>
             <FontAwesome name="bell" size={24} color="#000" />
             {hasNotifications && <View style={styles.notificationDot} />}

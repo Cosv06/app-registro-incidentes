@@ -22,7 +22,7 @@ export default function HomeScreen() {
         <Pressable
           onPress={() => {
             markAsRead();
-            router.push('/notificaciones');
+            router.push({ pathname: '/notificaciones', params: { from: '../home' } });
           }}
           style={styles.bellWrapper}
         >
@@ -47,11 +47,17 @@ export default function HomeScreen() {
         <Text style={styles.buttonText}>Nuevo registro</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.buttonYellow}>
+      <TouchableOpacity 
+      style={styles.buttonYellow}
+        onPress={() => router.push('/seguimiento-activo')}
+      >
         <Text style={styles.buttonText}>Seguimiento activo</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.buttonYellow}>
+      <TouchableOpacity 
+        style={styles.buttonYellow}
+        onPress={() => router.push('/historial-incidentes')}
+      >
         <Text style={styles.buttonText}>Historial de incidentes</Text>
       </TouchableOpacity>
 
@@ -87,7 +93,10 @@ export default function HomeScreen() {
         <Text style={styles.buttonText}>Administrar cuenta</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.buttonRedLight}>
+      <TouchableOpacity 
+        style={styles.buttonRedLight}
+        onPress={() => router.push('/mis-actividades')}
+      >
         <Text style={styles.buttonText}>Mis actividades</Text>
       </TouchableOpacity>
 
